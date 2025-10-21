@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://cmanip87n4kyc"]
+
+[ext_resource type="Terrain3DMaterial" uid="uid://b2ssu1apbkwx4" path="res://levels/nivel_data/nivel_material.tres" id="1_vw0uq"]
+[ext_resource type="Terrain3DAssets" uid="uid://bd05hkshv4m78" path="res://levels/nivel_data/nivel_assets.tres" id="2_4siac"]
+[ext_resource type="PackedScene" uid="uid://jqavkljfos7y" path="res://player/player.tscn" id="3_4siac"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_4siac"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_ued2g"]
+sky_material = SubResource("ProceduralSkyMaterial_4siac")
+
+[sub_resource type="Environment" id="Environment_51fq8"]
+background_mode = 2
+sky = SubResource("Sky_ued2g")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="Node3D" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_51fq8")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+light_energy = 0.889
+light_volumetric_fog_energy = 1.204
+light_angular_distance = 2.29
+light_specular = 0.389
+shadow_enabled = true
+
+[node name="Terrain3D" type="Terrain3D" parent="."]
+data_directory = "res://levels/nivel_data"
+material = ExtResource("1_vw0uq")
+assets = ExtResource("2_4siac")
+top_level = true
+metadata/_edit_lock_ = true
+
+[node name="Node3D" parent="." instance=ExtResource("3_4siac")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.985877, 0)

@@ -1,0 +1,58 @@
+[gd_scene load_steps=11 format=3 uid="uid://b1170xvhs6onf"]
+
+[ext_resource type="Texture2D" uid="uid://b71nq02vpbgfw" path="res://textures/floor/soul_sand.png" id="1_cwqvt"]
+[ext_resource type="Texture2D" uid="uid://cvlwi5468nm4o" path="res://textures/floor/soul_sand_mer.png" id="2_5mrsh"]
+[ext_resource type="Texture2D" uid="uid://c0ck77r1rdba0" path="res://textures/floor/soul_sand_normal.png" id="3_safpt"]
+[ext_resource type="PackedScene" uid="uid://jqavkljfos7y" path="res://player/player.tscn" id="4_5mrsh"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5mrsh"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_safpt"]
+sky_material = SubResource("ProceduralSkyMaterial_5mrsh")
+
+[sub_resource type="Environment" id="Environment_gjl0y"]
+background_mode = 2
+background_energy_multiplier = 1.85
+sky = SubResource("Sky_safpt")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_umreq"]
+size = Vector3(100, 1, 100)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hjsbj"]
+albedo_texture = ExtResource("1_cwqvt")
+metallic = 1.0
+metallic_texture = ExtResource("2_5mrsh")
+roughness_texture = ExtResource("2_5mrsh")
+roughness_texture_channel = 2
+normal_enabled = true
+normal_texture = ExtResource("3_safpt")
+uv1_scale = Vector3(100, 100, 100)
+
+[sub_resource type="BoxMesh" id="BoxMesh_80vhd"]
+
+[node name="level" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_gjl0y")
+
+[node name="floor" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="floor"]
+transform = Transform3D(0.999113, 0, 0, 0, 0.999113, 0, 0, 0, 0.999113, 0, 0, 0)
+shape = SubResource("BoxShape3D_umreq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="floor"]
+transform = Transform3D(100, 0, 0, 0, 1, 0, 0, 0, 100, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_hjsbj")
+mesh = SubResource("BoxMesh_80vhd")
+
+[node name="Node3D" parent="." instance=ExtResource("4_5mrsh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.53199, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.584958, 0.811064, 0, -0.811064, 0.584958, 0, 6.7089, 0)
+shadow_enabled = true
